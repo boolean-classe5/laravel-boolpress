@@ -12,7 +12,7 @@
 */
 
 Route::get('/', 'HomeController@index')->name('home');
-Route::get('/posts/{slug}', 'PostController@show')->name('posts.show');
+Route::get('/post/{slug}', 'PostController@show')->name('posts.show');
 Route::get('/categories/{slug}', 'PostController@postInCategory')->name('posts.category');
 
 Auth::routes();

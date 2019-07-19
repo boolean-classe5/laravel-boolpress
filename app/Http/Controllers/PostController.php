@@ -17,11 +17,14 @@ class PostController extends Controller
     }
 
     public function postInCategory($slug) {
+
+      // parto dalla categoria e ne recupero i relativi post
       $category = Category::where('slug', $slug)->first();
       if(empty($category)) {
         abort(404);
       }
       $posts = $category->posts;
+      
       return view('posts.category')->with([
         'posts' => $posts,
         'category' => $category

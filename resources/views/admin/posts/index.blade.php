@@ -14,6 +14,7 @@
           <th>Autore</th>
           <th>Slug</th>
           <th>Categoria</th>
+          <th>Tag</th>
           <th>Creato il</th>
           <th>Modificato il</th>
           <th>Azioni</th>
@@ -26,6 +27,15 @@
         <td>{{ $post->author }}</td>
         <td>{{ $post->slug }}</td>
         <td>{{ !empty($post->category) ? $post->category->name : '-' }}</td>
+        <td>
+          @if(($post->tags)->isNotEmpty())
+            @foreach ($post->tags as $singolo_tag_di_questo_post)
+              {{ $singolo_tag_di_questo_post->name }}@if(!$loop->last), @endif
+            @endforeach
+          @else
+            -
+          @endif
+        </td>
         <td>{{ $post->created_at }}</td>
         <td>{{ $post->updated_at }}</td>
         <td>
