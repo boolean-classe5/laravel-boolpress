@@ -4,6 +4,19 @@
   <div class="container">
     <ul>
       <h1>Tutti i post</h1>
+      <form class="" action="{{ route('posts.filterByAuthor') }}" method="post">
+        @csrf
+        <select name="author">
+          <option value="">Scegli un autore</option>
+          @foreach ($authors as $author_record)
+            <option value="{{ $author_record->author }}">
+              {{ $author_record->author }}
+            </option>
+          @endforeach
+        </select>
+        <input type="submit" value="Filtra per autore">
+      </form>
+
       @forelse ($posts as $post)
         <li>
           <a href="{{ route('posts.show', $post->slug)}}">{{ $post->title }}</a>,
@@ -26,6 +39,7 @@
         <p>Non ci sono post</p>
       @endforelse
     </ul>
+    {{ $posts->links() }}
   </div>
 
 @endsection

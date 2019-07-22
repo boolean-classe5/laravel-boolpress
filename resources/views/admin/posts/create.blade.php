@@ -31,15 +31,22 @@
         <select class="form-control" name="category_id">
           <option value="">Seleziona la categoria del post</option>
           @foreach ($categories as $category)
-            <option value="{{ $category->id }}">{{ $category->name }}</option>
+            <option value="{{ $category->id }}" {{ old('category_id') == $category->id ? 'selected' : '' }}>
+              {{ $category->name }}
+            </option>
           @endforeach
         </select>
       </div>
       <div class="form-group">
         <label>TAG:</label>
         @foreach ($tags as $tag)
-          <label><input type="checkbox" name="tag_ids[]" value="{{ $tag->id }}"> {{ $tag->name }}</label>
+          <label><input type="checkbox" name="tag_ids[]" value="{{ $tag->id }}" {{ in_array($tag->id, old('tag_ids', array())) ? 'checked' : '' }}> {{ $tag->name }}</label>
         @endforeach
+      </div>
+      <div class="form-group">
+        <label>Pubblico o privato?</label>
+        <label><input type="radio" name="public" value="1"> Pubblico</label>
+        <label><input type="radio" name="public" value="0"> Privato</label>
       </div>
       <div class="form-group">
           <input class="btn btn-success" type="submit" value="Salva">

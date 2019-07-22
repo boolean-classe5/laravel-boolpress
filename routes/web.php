@@ -14,7 +14,8 @@
 Route::get('/', 'HomeController@index')->name('home');
 Route::get('/post/{slug}', 'PostController@show')->name('posts.show');
 Route::get('/categories/{slug}', 'PostController@postInCategory')->name('posts.category');
-
+Route::post('/posts-by-author', 'PostController@filterPostsByAuthor')->name('posts.filterByAuthor');
+Route::get('/author/{auhtor_name}', 'PostController@postByAuthor')->name('posts.author');
 Auth::routes();
 
 Route::middleware('auth')->prefix('admin')->namespace('Admin')->name('admin.')->group(function() {
