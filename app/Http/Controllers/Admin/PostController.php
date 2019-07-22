@@ -7,7 +7,9 @@ use App\Http\Controllers\Controller;
 use App\Post;
 use App\Category;
 use App\Tag;
+use App\PostImage;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Storage;
 
 class PostController extends Controller
 {
@@ -29,6 +31,7 @@ class PostController extends Controller
 
     public function store(Request $request)
     {
+
         $validatedData = $request->validate([
             'title' => 'required|unique:posts|max:255',
             'content' => 'required',
@@ -45,10 +48,22 @@ class PostController extends Controller
           // => tolgo il category_id dai dati "fillable"
           unset($dati['category_id']);
         }
+        // creo il nuovo post, assegno i valori e salvo a db
         $newPost = new Post();
         $newPost->fill($dati);
         $newPost->save();
+        // salvo le associazioni con i tag selezionati dall'utente
         $newPost->tags()->sync($dati['tag_ids']);
+        // salvo l'immagine di copertina caricata dall'utente
+        $img = Storage::put('post_images', $dati['post_image']);
+        $newPostImage = new PostImage();
+        $newPostImage->path = $img;
+        /*
+        $newPostImage->post_id = $newPost->id;
+        $newPostImage->save();
+        */
+        $newPost->postImage()->save($newPostImage);
+
         return redirect()->route('admin.posts.index');
     }
 

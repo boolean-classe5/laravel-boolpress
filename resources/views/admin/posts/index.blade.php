@@ -10,9 +10,9 @@
       <thead>
         <tr>
           <th>ID</th>
+          <th>Copertina</th>
           <th>Titolo</th>
           <th>Autore</th>
-          <th>Slug</th>
           <th>Categoria</th>
           <th>Tag</th>
           <th>Creato il</th>
@@ -23,9 +23,15 @@
     @forelse ($posts as $post)
       <tr>
         <td>{{ $post->id }}</td>
+        <td>
+          @if (!empty($post->postImage))
+            <img style="width:100px;" src="{{ asset('storage/'. $post->postImage->path) }}" alt="{{ $post->postImage->alt }}">
+          @else
+            -
+          @endif
+        </td>
         <td>{{ $post->title }}</td>
         <td>{{ $post->author }}</td>
-        <td>{{ $post->slug }}</td>
         <td>{{ !empty($post->category) ? $post->category->name : '-' }}</td>
         <td>
           @if(($post->tags)->isNotEmpty())

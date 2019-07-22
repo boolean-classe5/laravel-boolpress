@@ -13,7 +13,7 @@
         </div>
     @endif
 
-    <form action="{{ route('admin.posts.store') }}" method="post">
+    <form action="{{ route('admin.posts.store') }}" method="post" enctype="multipart/form-data">
       @csrf
       <div class="form-group">
         <label for="title">Titolo:</label>
@@ -47,6 +47,10 @@
         <label>Pubblico o privato?</label>
         <label><input type="radio" name="public" value="1"> Pubblico</label>
         <label><input type="radio" name="public" value="0"> Privato</label>
+      </div>
+      <div class="form-group">
+        <label for="post_image">Immagine di copertina:</label>
+        <input type="file" name="post_image" class="form-control-file">
       </div>
       <div class="form-group">
           <input class="btn btn-success" type="submit" value="Salva">
