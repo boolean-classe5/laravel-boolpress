@@ -70,7 +70,4 @@ class RegisterController extends Controller
         ]);
     }
 
-    protected function showRegistrationForm() {
-      return redirect()->route('home');
-    }
 }
